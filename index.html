@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>情報処理 単語トレーナー</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- タイトル画面 -->
+    <div id="titleScreen" class="screen active">
+        <h1 class="title">情報処理 単語トレーナー</h1>
+        <p class="subtitle">クラスみんなで使える学習アプリ</p>
+
+        <button id="startBtn" class="btn big primary">はじめる</button>
+    </div>
+
+    <!-- メイン画面 -->
+    <div id="mainScreen" class="screen">
+        <div class="top-bar">
+            <h2 class="app-name">単語トレーニング</h2>
+            <div class="score" id="score">正解数：0</div>
+        </div>
+
+        <!-- CSV読み込み -->
+        <div class="load-area">
+            <div class="load-block">
+                <label class="label">CSVファイル読み込み：</label>
+                <input type="file" id="csvInput" accept=".csv">
+            </div>
+
+            <div class="load-block">
+                <label class="label">CSV URL 読み込み：</label>
+                <input type="text" id="csvUrlInput" placeholder="https://example.com/words.csv">
+                <button id="loadUrlBtn" class="btn small">読み込む</button>
+            </div>
+        </div>
+
+        <!-- モード切替 -->
+        <div class="mode-switch">
+            <button class="mode-btn active" data-mode="input">タイピング</button>
+            <button class="mode-btn" data-mode="choice">四択</button>
+            <button class="mode-btn" data-mode="review">復習</button>
+        </div>
+
+        <!-- カウンター -->
+        <div class="counter" id="counter">単語を読み込んでください</div>
+
+        <!-- 問題表示エリア -->
+        <div id="quizArea" class="quiz-area">
+            <div class="empty">CSVを読み込んでください。</div>
+        </div>
+
+        <!-- 履歴 -->
+        <button id="historyBtn" class="btn small">履歴表示 / 非表示</button>
+        <div id="historyPanel" class="history-panel"></div>
+
+        <!-- リセット -->
+        <button id="resetBtn" class="btn small danger">スコア・履歴リセット</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
