@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>情報処理 単語トレーナー</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #e3d7ff, #c7e4ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 650px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 18px;
+            padding: 20px 18px 22px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .file-input {
+            font-size: 0.8rem;
+            color: #475569;
+        }
+
+        .file-input input {
+            font-size: 0.8rem;
+        }
+
+        .score {
+            font-size: 0.9rem;
+            color: #334155;
+            margin-bottom: 6px;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid #cbd5e1;
+            background: #e2e8f0;
+            color: #334155;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .tool-btn:hover {
+            background: #cbd5e1;
+        }
+
+        .mode-switch {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 6px 8px;
+            border-radius: 999px;
+            border: 1px solid #94a3b8;
+            background: rgba(255, 255, 255, 0.9);
+            color: #475569;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, #6366f1, #22c1c3);
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.4);
+        }
+
+        .counter {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 6px;
+        }
+
+        .card {
+            border-radius: 14px;
+            padding: 14px 12px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            margin-bottom: 10px;
+        }
+
+        .label {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-bottom: 4px;
+        }
+
+        .term {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .input-area input {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 10px;
+            border: 1px solid #cbd5f5;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .input-area input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.35);
+        }
+
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .choice-btn {
+            width: 100%;
+            text-align: left;
+            padding: 8px 10px;
+            border-radius: 10px;
+            border: 1px solid #cbd5f5;
+            background: rgba(248, 250, 252, 0.9);
+            font-size: 0.9rem;
+            color: #1f2933;
+            cursor: pointer;
+            transition: all 0.12s ease;
+        }
+
+        .choice-btn:hover {
+            background: #e5edff;
+        }
+
+        .choice-btn.correct {
+            background: #dcfce7;
+            border-color: #22c55e;
+            color: #166534;
+        }
+
+        .choice-btn.wrong {
+            background: #fee2e2;
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 7px 12px;
+            border-radius: 999px;
+            border: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1, #22c1c3);
+            color: #fff;
+            box-shadow: 0 6px 14px rgba(79, 70, 229, 0.35);
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.05);
+        }
+
+        .answer {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #475569;
+        }
+
+        .answer strong {
+            color: #0f172a;
+        }
+
+        .message {
+            margin-top: 6px;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .empty {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #64748b;
+            padding: 16px 4px 6px;
+        }
+
+        .history-panel {
+            margin-top: 10px;
+            max-height: 160px;
+            overflow-y: auto;
+            font-size: 0.8rem;
+            color: #475569;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 6px;
+            display: none;
+        }
+
+        .history-item {
+            padding: 3px 0;
+            border-bottom: 1px dashed #e5e7eb;
+        }
+
+        .history-item span.mode {
+            color: #6366f1;
+            font-weight: 500;
+            margin-right: 4px;
+        }
+
+        .history-item span.ok {
+            color: #16a34a;
+        }
+
+        .history-item span.ng {
+            color: #dc2626;
+        }
+
+        .clear-card {
+            text-align: center;
+            padding: 20px 10px;
+        }
+
+        .clear-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #4f46e5;
+            margin-bottom: 6px;
+        }
+
+        .clear-sub {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <div class="header">
+            <div class="title">情報処理 単語トレーナー</div>
+            <div class="file-input">
+                <label>
+                    CSVを読み込む：
+                    <input type="file" id="csvInput" accept=".csv">
+                </label>
+            </div>
+        </div>
+
+        <div class="score" id="score">正解数：0</div>
+
+        <div class="toolbar">
+            <button class="tool-btn" id="resetBtn">スコアリセット</button>
+            <button class="tool-btn" id="historyBtn">履歴表示 / 非表示</button>
+        </div>
+
+        <div class="mode-switch">
+            <button class="mode-btn active" data-mode="input">タイピング入力</button>
+            <button class="mode-btn" data-mode="choice">四択式</button>
+            <button class="mode-btn" data-mode="review">復習</button>
+        </div>
+
+        <div class="counter" id="counter">単語リストを読み込んでください</div>
+
+        <div id="quizArea">
+            <div class="empty">まだ単語が読み込まれていません。<br>上の「CSVを読み込む」からファイルを選んでください。</div>
+        </div>
+
+        <div class="history-panel" id="historyPanel"></div>
+    </div>
+
+    <script>
+        let words = [];
+        let wrongList = [];
+        let currentIndex = 0;
+        let mode = "input";
+        let reviewMode = false;
+        let correctCount = 0;
+        let history = [];
+
+        const csvInput = document.getElementById("csvInput");
+        const quizArea = document.getElementById("quizArea");
+        const counterEl = document.getElementById("counter");
+        const scoreEl = document.getElementById("score");
+        const modeButtons = document.querySelectorAll(".mode-btn");
+        const resetBtn = document.getElementById("resetBtn");
+        const historyBtn = document.getElementById("historyBtn");
+        const historyPanel = document.getElementById("historyPanel");
+
+        // ゆらぎ吸収用の正規化関数
+        function normalize(str) {
+            return str
+                .trim()
+                .toLowerCase()
+                .replace(/[Ａ-Ｚａ-ｚ０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0)) // 全角→半角
+                .replace(/[\s　]/g, "") // 空白削除
+                .replace(/[-‐‑‒–—―ー−]/g, "") // ハイフン系削除
+                .replace(/[・.]/g, "") // 中黒・ドット削除
+                // ここに必要ならカタカナ→英語のゆらぎを追加
+                .replace(/アイピーアドレス/g, "ipアドレス")
+                .replace(/ピーエル法/g, "pl法")
+                .replace(/ピーケーアイ/g, "pki")
+                .replace(/シーエスアイアールティー/g, "csirt")
+                .replace(/シーエスエフ/g, "csf")
+                .replace(/シーイーオー/g, "ceo")
+                .replace(/シーアイオー/g, "cio");
+        }
+
+        // 履歴の読み込み
+        const saved = localStorage.getItem("wordTrainerHistory");
+        if (saved) {
+            try {
+                history = JSON.parse(saved);
+                renderHistory();
+            } catch { }
+        }
+
+        function saveHistory() {
+            localStorage.setItem("wordTrainerHistory", JSON.stringify(history));
+        }
+
+        function addHistory(item, isCorrect, usedMode) {
+            const now = new Date();
+            const time = now.toLocaleTimeString("ja-JP", { hour: "2-digit", minute: "2-digit" });
+            history.unshift({
+                term: item.term,
+                correct: isCorrect,
+                mode: usedMode,
+                time
+            });
+            if (history.length > 200) history.pop();
+            saveHistory();
+            renderHistory();
+        }
+
+        function renderHistory() {
+            if (history.length === 0) {
+                historyPanel.innerHTML = '<div class="history-item">履歴はまだありません。</div>';
+                return;
+            }
+            historyPanel.innerHTML = history.map(h => `
+        <div class="history-item">
+          <span class="mode">[${h.mode}]</span>
+          <span class="${h.correct ? "ok" : "ng"}">${h.correct ? "○" : "×"}</span>
+          <span>${h.term}</span>
+          <span style="float:right; color:#9ca3af;">${h.time}</span>
+        </div>
+      `).join("");
+        }
+
+        function updateScore() {
+            scoreEl.textContent = `正解数：${correctCount}`;
+        }
+
+        modeButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                modeButtons.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+
+                const m = btn.dataset.mode;
+
+                if (m === "review") {
+                    reviewMode = true;
+                } else {
+                    reviewMode = false;
+                    mode = m;
+                }
+
+                showQuestion();
+            });
+        });
+
+        resetBtn.addEventListener("click", () => {
+            if (!confirm("スコア・復習リスト・履歴をリセットしますか？")) return;
+            correctCount = 0;
+            wrongList = [];
+            history = [];
+            saveHistory();
+            renderHistory();
+            updateScore();
+            showQuestion();
+        });
+
+        historyBtn.addEventListener("click", () => {
+            historyPanel.style.display =
+                historyPanel.style.display === "none" || historyPanel.style.display === ""
+                    ? "block"
+                    : "none";
+        });
+
+        csvInput.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = () => {
+                const lines = reader.result.split(/\r?\n/).map(l => l.trim()).filter(l => l);
+                const result = [];
+
+                for (const line of lines) {
+                    const parts = line.split(",");
+                    if (parts.length >= 2) {
+                        result.push({ term: parts[0].trim(), meaning: parts.slice(1).join(",").trim() });
+                    }
+                }
+
+                words = result;
+                wrongList = [];
+                currentIndex = 0;
+                correctCount = 0;
+                updateScore();
+                showQuestion();
+            };
+            reader.readAsText(file, "UTF-8");
+        });
+
+        function showQuestion() {
+            if (words.length === 0) {
+                quizArea.innerHTML = '<div class="empty">単語が読み込まれていません。</div>';
+                counterEl.textContent = "単語リストを読み込んでください";
+                return;
+            }
+
+            if (reviewMode && wrongList.length === 0) {
+                quizArea.innerHTML = `
+          <div class="card clear-card">
+            <div class="clear-title">復習クリア！</div>
+            <div class="clear-sub">間違えた問題は全部やり直したで。えらい。</div>
+            <button class="btn btn-primary" id="backNormalBtn">通常モードに戻る</button>
+          </div>
+        `;
+                counterEl.textContent = "復習モード";
+                document.getElementById("backNormalBtn").addEventListener("click", () => {
+                    reviewMode = false;
+                    mode = "input";
+                    modeButtons.forEach(b => {
+                        b.classList.toggle("active", b.dataset.mode === "input");
+                    });
+                    showQuestion();
+                });
+                return;
+            }
+
+            const list = reviewMode ? wrongList : words;
+            if (list.length === 0) {
+                quizArea.innerHTML = '<div class="empty">問題がありません。</div>';
+                return;
+            }
+
+            const item = list[currentIndex];
+
+            counterEl.textContent = reviewMode
+                ? `復習：${currentIndex + 1} / ${list.length}`
+                : `${currentIndex + 1} / ${words.length} 問目`;
+
+            if (mode === "input") renderInput(item);
+            else renderChoice(item);
+        }
+
+        // タイピング型・ゆらぎ許容の入力式
+        function renderInput(item) {
+            quizArea.innerHTML = `
+    <div class="card">
+      <div class="label">意味</div>
+      <div class="term">${item.meaning}</div>
+
+      <div class="input-area" style="margin-top:10px;">
+        <div class="label">用語を入力</div>
+        <input type="text" id="userAnswer" placeholder="ここに用語を入力">
+      </div>
+
+      <div class="buttons">
+        <button class="btn btn-secondary" id="showBtn">答えを見る</button>
+        <button class="btn btn-primary" id="checkBtn">答え合わせ</button>
+      </div>
+
+      <div class="answer" id="answerArea" style="display:none;">
+        <strong>正解：</strong>
+        <span id="answerText"></span>
+      </div>
+
+      <div class="message" id="messageArea"></div>
+    </div>
+  `;
+
+            const input = document.getElementById("userAnswer");
+            const answerArea = document.getElementById("answerArea");
+            const answerText = document.getElementById("answerText");
+            const messageArea = document.getElementById("messageArea");
+
+            // ▼ 自動フォーカス（幸大の要望）
+            input.focus();
+
+            answerText.textContent = item.term;
+
+            // ▼ ヒント（最初の2文字）
+            const hint = item.term.slice(0, 2) + "…";
+
+            // ▼ 答えを見る（任意）
+            document.getElementById("showBtn").addEventListener("click", () => {
+                answerArea.style.display = "block";
+                messageArea.textContent = "正解を確認して覚えよう。";
+            });
+
+            // ▼ 判定処理（ボタン・Enter共通）
+            function checkAnswer() {
+                const user = normalize(input.value);
+                const correct = normalize(item.term);
+
+                let isCorrect = false;
+
+                if (user === correct) {
+                    // 正解
+                    correctCount++;
+                    updateScore();
+                    messageArea.textContent = "正解！その調子やで。";
+                    isCorrect = true;
+
+                    if (reviewMode) {
+                        wrongList = wrongList.filter(w => w.term !== item.term);
+                    }
+
+                    addHistory(item, true, reviewMode ? "復習(入力)" : "入力");
+
+                    // 0.8秒後に次の問題へ
+                    setTimeout(nextQuestion, 800);
+
+                } else {
+                    // 不正解 → ヒントだけ表示
+                    messageArea.textContent = `惜しい！ヒント：${hint}`;
+                    if (!wrongList.includes(item)) wrongList.push(item);
+
+                    addHistory(item, false, reviewMode ? "復習(入力)" : "入力");
+                }
+            }
+
+            // ▼ ボタンクリック
+            document.getElementById("checkBtn").addEventListener("click", checkAnswer);
+
+            // ▼ Enterキーで答え合わせ
+            input.addEventListener("keydown", (e) => {
+                if (e.key === "Enter") {
+                    checkAnswer();
+                }
+            });
+        }
+
+
+        function renderChoice(item) {
+            const pool = words.filter(w => w.term !== item.term && w.meaning);
+            shuffle(pool);
+
+            const choices = [item, ...pool.slice(0, 3)];
+            shuffle(choices);
+
+            quizArea.innerHTML = `
+        <div class="card">
+          <div class="label">用語</div>
+          <div class="term">${item.term}</div>
+
+          <div class="label" style="margin-top:10px;">正しい意味を選ぼう</div>
+
+          <div class="choices">
+            ${choices.map((c, i) => `
+              <button class="choice-btn" data-index="${i}">
+                ${i + 1}. ${c.meaning}
+              </button>
+            `).join("")}
+          </div>
+
+          <div class="buttons">
+            <button class="btn btn-primary" id="nextBtn">次の問題へ</button>
+          </div>
+
+          <div class="answer" id="answerArea" style="display:none;">
+            <strong>正解：</strong><span id="answerText"></span>
+          </div>
+        </div>
+      `;
+
+            const btns = quizArea.querySelectorAll(".choice-btn");
+            let answered = false;
+
+            btns.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    if (answered) return;
+                    answered = true;
+
+                    const idx = Number(btn.dataset.index);
+                    const selected = choices[idx];
+                    let isCorrect = false;
+
+                    if (selected.term === item.term) {
+                        btn.classList.add("correct");
+                        correctCount++;
+                        updateScore();
+                        isCorrect = true;
+
+                        if (reviewMode) {
+                            wrongList = wrongList.filter(w => w.term !== item.term);
+                        }
+                    } else {
+                        btn.classList.add("wrong");
+                        if (!wrongList.includes(item)) wrongList.push(item);
+
+                        const correctBtn = [...btns].find((b, i) => choices[i].term === item.term);
+                        correctBtn.classList.add("correct");
+                    }
+
+                    document.getElementById("answerText").textContent = item.meaning;
+                    document.getElementById("answerArea").style.display = "block";
+
+                    addHistory(item, isCorrect, reviewMode ? "復習(四択)" : "四択");
+                });
+            });
+
+            document.getElementById("nextBtn").addEventListener("click", nextQuestion);
+        }
+
+        function nextQuestion() {
+            const list = reviewMode ? wrongList : words;
+
+            if (list.length === 0) {
+                showQuestion();
+                return;
+            }
+
+            currentIndex = Math.floor(Math.random() * list.length);
+            showQuestion();
+        }
+
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+        }
+    </script>
+</body>
+
+</html>
