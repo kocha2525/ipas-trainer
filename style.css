@@ -257,3 +257,75 @@ input[type="text"] {
 .screen.active {
     z-index: 1;
 }
+
+/* ===============================
+   UI 改善（スマホ・PC両対応）
+   =============================== */
+
+/* 画面全体の最大幅を調整（PCで見やすく） */
+#mainScreen {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* カードの余白をスマホ向けに最適化 */
+.card {
+    padding: 18px;
+    border-radius: 14px;
+}
+
+/* ボタンをスマホで押しやすく */
+.btn,
+.choice-btn {
+    padding: 14px 20px;
+    font-size: 1.1rem;
+}
+
+/* 上部バーを固定して常に見えるように */
+.top-bar {
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    z-index: 10;
+    backdrop-filter: blur(6px);
+}
+
+/* スマホ最適化 */
+@media (max-width: 600px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .card {
+        padding: 14px;
+    }
+
+    .term {
+        font-size: 1.2rem;
+    }
+
+    input[type="text"] {
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    .btn,
+    .choice-btn {
+        font-size: 1rem;
+        padding: 12px 16px;
+    }
+
+    .top-bar {
+        padding: 8px;
+    }
+}
