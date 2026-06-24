@@ -325,3 +325,9 @@ window.addEventListener("load", () => {
         .then(text => parseCSV(text))
         .catch(() => console.log("自動読み込み失敗"));
 });
+const cleanLine = line
+    .replace(/^\uFEFF/, "")   // BOM除去
+    .replace(/\r/g, "")       // CR除去
+    .trim();                  // 前後の空白除去
+
+const parts = cleanLine.split(",");
