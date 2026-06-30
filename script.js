@@ -543,8 +543,7 @@ document.getElementById("historyBackBtn").onclick = () => {
 
 
 document.getElementById("backBtn").onclick = () => {
-    showScreen("mainScreen");
-    showQuestion();  // ★これが必要
+    showScreen("groupScreen");   // ★グループ選択画面に戻る
 };
 
 
@@ -593,7 +592,3 @@ function showWordList() {
 
     showScreen("listScreen");
 }
-
-document.getElementById("backBtn").onclick = () => {
-    showScreen("mainScreen");
-};
