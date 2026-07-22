@@ -68,7 +68,103 @@ document.addEventListener("DOMContentLoaded", () => {
             { term: "POSシステム", meaning: "販売時点情報管理システム", detail: "Point of Sale の略で、レジでの販売情報を記録し在庫管理や売上分析に活用する仕組み" },
             { term: "PPM", meaning: "製品を市場成長率と占有率で分類する手法", detail: "Product Portfolio Management の略で、花形・金のなる木・問題児・負け犬の4分類で事業を評価する手法" },
             { term: "RAIDシステム", meaning: "複数HDDをまとめて高速化・冗長化する仕組み", detail: "Redundant Array of Independent Disks の略で、複数ディスクをまとめて扱い高速化や安全性向上を図る技術" }
+        ],
+
+        group3: [
+            { term: "RASIS", meaning: "情報システムの評価指標", detail: "Reliability・Availability・Serviceability・Integrity・Security の5要素でシステムの品質を評価する指標" },
+            { term: "RFI", meaning: "情報提供依頼書", detail: "Request For Information の略で、製品やサービスの概要情報を提供してもらうための文書" },
+            { term: "RFID", meaning: "無線ICタグ", detail: "Radio Frequency Identification の略で、電波を使ってタグ情報を読み取る仕組み" },
+            { term: "RFM分析", meaning: "顧客分析手法", detail: "Recency・Frequency・Monetary の3軸で顧客の価値を評価するマーケティング手法" },
+            { term: "RFP", meaning: "提案依頼書", detail: "Request For Proposal の略で、システム開発やサービス提供の提案を依頼する文書" },
+            { term: "RSS", meaning: "Web更新情報配信フォーマット", detail: "Really Simple Syndication の略で、ニュースやブログの更新情報を配信する仕組み" },
+            { term: "SaaS", meaning: "クラウド型ソフトウェア提供形態", detail: "Software as a Service の略で、インターネット経由でソフトウェアを利用する方式" },
+            { term: "SCM", meaning: "供給連鎖管理", detail: "Supply Chain Management の略で、調達・生産・物流を最適化する管理手法" },
+            { term: "SEO", meaning: "検索エンジン最適化", detail: "Search Engine Optimization の略で、検索結果の上位表示を狙うWeb施策" },
+            { term: "SFA", meaning: "営業支援システム", detail: "Sales Force Automation の略で、営業活動を効率化するためのシステム" },
+            { term: "SLA", meaning: "サービス品質保証契約", detail: "Service Level Agreement の略で、サービス提供者と利用者が合意する品質基準" },
+            { term: "SLCP", meaning: "ソフトウェアライフサイクルプロセス", detail: "Software Life Cycle Process の略で、ソフトウェア開発から廃棄までの工程を定義した規格" },
+            { term: "SNS", meaning: "ソーシャルネットワーキングサービス", detail: "Social Networking Service の略で、ユーザー同士が交流するWebサービス" },
+            { term: "SOA", meaning: "サービス指向アーキテクチャ", detail: "Service Oriented Architecture の略で、機能をサービスとして組み合わせるシステム構造" },
+            { term: "SRAM", meaning: "高速な揮発性メモリ", detail: "Static RAM の略で、DRAMより高速だが高価な半導体メモリ" },
+            { term: "SWOT分析", meaning: "戦略分析手法", detail: "Strength・Weakness・Opportunity・Threat の4要素で企業や事業を分析する手法" },
+            { term: "TCO", meaning: "総保有コスト", detail: "Total Cost of Ownership の略で、導入から廃棄までの総コストを評価する考え方" },
+            { term: "TCP/IP", meaning: "インターネット通信プロトコル", detail: "通信を行うための基本プロトコル群で、TCPとIPを中心に構成される" },
+            { term: "TOB", meaning: "株式公開買付け", detail: "Take Over Bid の略で、株式を市場外で公開買付けする手法" },
+            { term: "UPS", meaning: "無停電電源装置", detail: "Uninterruptible Power Supply の略で、停電時に電力を供給する装置" },
+            { term: "URL", meaning: "インターネット上の住所", detail: "Uniform Resource Locator の略で、Webページや画像などの場所を示すための識別子。https://〜 のように、プロトコル・ドメイン名・パスで構成される。" },
+            { term: "WAF", meaning: "Webアプリケーションファイアウォール", detail: "Web Application Firewall の略で、Webアプリへの攻撃を防ぐセキュリティ装置" },
+            { term: "WBS", meaning: "作業分解構成図", detail: "Work Breakdown Structure の略で、プロジェクトの作業を階層的に分解する図" },
+            { term: "XML", meaning: "データ記述言語", detail: "Extensible Markup Language の略で、データ構造を記述するための汎用マークアップ言語" },
+            { term: "アウトソーシング", meaning: "外部委託", detail: "業務の一部を外部企業に委託して効率化を図る手法" },
+            { term: "アクセシビリティ", meaning: "利用しやすさの指標", detail: "高齢者・障害者を含むすべての人が利用しやすいように設計する考え方" },
+            { term: "アドウェア", meaning: "広告表示ソフト", detail: "広告を表示する代わりに無料で提供されるソフトウェア" },
+            { term: "アフィリエイト", meaning: "成果報酬型広告", detail: "紹介リンク経由の購入・申込に応じて報酬が支払われる仕組み" },
+            { term: "アライアンス", meaning: "企業間提携", detail: "複数企業が協力して事業を進める戦略的提携" },
+            { term: "アローダイアグラム", meaning: "PERT図の一種", detail: "作業の順序や依存関係を矢印で表すプロジェクト管理図" }
+        ],
+
+        group4: [
+            { term: "意匠権", meaning: "デザインを保護する権利", detail: "物品の形状・模様・色彩などのデザインを保護するための権利。工業所有権の一つ。" },
+
+            { term: "委任（委託）契約", meaning: "業務を依頼する契約", detail: "法律行為や事務処理を相手に任せる契約。成果ではなく行為の実施が目的。" },
+
+            { term: "イノベータ理論", meaning: "新製品普及の分類モデル", detail: "新製品の普及をイノベータ・アーリーアダプタなど5段階に分類するマーケティング理論。" },
+
+            { term: "インシデント管理", meaning: "障害対応プロセス", detail: "ITサービスの障害やトラブルを迅速に復旧し、影響を最小化する管理プロセス。" },
+
+            { term: "インセンティブ制度", meaning: "成果に応じた報酬制度", detail: "社員の成果や行動に応じて報酬や特典を与える制度。" },
+
+            { term: "ウォーターフォールモデル", meaning: "順次進行型の開発モデル", detail: "要件→設計→実装→テスト→運用のように工程を順番に進める開発手法。" },
+
+            { term: "請負契約", meaning: "成果物の完成を約束する契約", detail: "成果物の完成を目的とし、完成しなければ報酬が発生しない契約。" },
+
+            { term: "稼働率", meaning: "設備や人員の稼働割合", detail: "設備や人員が実際に稼働している時間の割合を示す指標。" },
+
+            { term: "ガントチャート", meaning: "工程管理図", detail: "作業の開始・終了・期間を横棒で表すスケジュール管理図。" },
+
+            { term: "キャッシュメモリ", meaning: "高速な補助記憶装置", detail: "CPUと主記憶の間でデータを高速にやり取りするための高速メモリ。" },
+
+            { term: "競争地位別戦略", meaning: "企業の市場地位に応じた戦略", detail: "リーダ・チャレンジャ・フォロワ・ニッチャの4分類で戦略を考えるマーケティング手法。" },
+
+            { term: "共通鍵暗号方式", meaning: "同じ鍵で暗号化・復号する方式", detail: "暗号化と復号に同じ鍵を使う方式。代表例はAES。" },
+
+            { term: "クラウドコンピューティング", meaning: "ネット経由でIT資源を利用する仕組み", detail: "サーバ・ストレージ・アプリをインターネット経由で利用する形態。" },
+
+            { term: "クリティカルパス", meaning: "最長経路の作業順序", detail: "プロジェクトの完了に必要な最長作業経路で、遅延すると全体が遅れる重要な経路。" },
+
+            { term: "コアコンピタンス", meaning: "企業の中核となる強み", detail: "競合に対して優位性を持つ企業独自の能力や技術。" },
+
+            { term: "公開鍵暗号方式", meaning: "公開鍵と秘密鍵を使う暗号方式", detail: "公開鍵で暗号化し秘密鍵で復号する方式。代表例はRSA。" },
+
+            { term: "コーポレートガバナンス", meaning: "企業統治", detail: "企業が適切に運営されるよう監視・統制する仕組み。" },
+
+            { term: "個人情報保護法", meaning: "個人情報の取り扱いを定めた法律", detail: "個人情報の取得・利用・管理に関するルールを定めた日本の法律。" },
+
+            { term: "コンカレントエンジニアリング", meaning: "同時並行開発手法", detail: "設計・製造など複数工程を同時並行で進めることで開発期間を短縮する手法。" },
+
+            { term: "コンプライアンス", meaning: "法令遵守", detail: "企業が法律・規則・倫理を守って行動すること。" },
+
+            { term: "サービスデスク", meaning: "問い合わせ窓口", detail: "利用者からの問い合わせや障害報告を受け付ける窓口機能。" },
+
+            { term: "サブネットマスク", meaning: "ネットワークとホストの区分情報", detail: "IPアドレスのネットワーク部とホスト部を区分するための値。" },
+
+            { term: "システム監査", meaning: "情報システムの評価活動", detail: "情報システムが適切に運用されているかを第三者が評価する活動。" },
+
+            { term: "実用新案権", meaning: "物品の形状・構造の考案を保護する権利", detail: "小発明（考案）を保護する工業所有権。" },
+
+            { term: "ジャストインタイム(JIT)", meaning: "必要なものを必要な時に生産する方式", detail: "在庫を最小化し、生産効率を高めるトヨタ生産方式の考え方。" },
+
+            { term: "商標権", meaning: "商品・サービスの標識を保護する権利", detail: "ブランド名やロゴなどを保護する工業所有権。" },
+
+            { term: "情報落ち/桁落ち", meaning: "計算誤差の一種", detail: "数値計算で有効桁が失われたり、桁が落ちて誤差が大きくなる現象。" },
+
+            { term: "職務分掌", meaning: "役割分担の明確化", detail: "組織内で担当業務や責任範囲を明確にすること。" },
+
+            { term: "ステークホルダ", meaning: "利害関係者", detail: "企業活動に影響を受ける関係者（株主・顧客・従業員など）。" },
+
+            { term: "ストレージサービス", meaning: "クラウド上の保存サービス", detail: "データをクラウド上に保存・共有できるサービス。例：OneDrive、Google Drive。" }
         ]
+
     };
 
     /* ===============================
